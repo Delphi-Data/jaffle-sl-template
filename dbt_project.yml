@@ -5,10 +5,6 @@ name: "jaffle_shop"
 version: "1.0.0"
 config-version: 2
 
-# This setting configures which "profile" dbt uses for this project.
-profile: "snowflake"
-require-dbt-version: ">=1.6.0rc2"
-
 # These configurations specify where dbt should look for different types of files.
 # The `model-paths` config, for example, states that models in this project can be
 # found in the "models/" directory. You probably won't need to change these!
@@ -38,6 +34,12 @@ vars:
 models:
   jaffle_shop:
     staging:
+      +schema: jaffle_mf_stg
       +materialized: view
     marts:
-      +materialized: table
+      +schema: jaffle_mf_mart
+      +materialized: view
+
+seeds:
+  jaffle_shop:
+    +schema: jaffle_mf_raw_data
